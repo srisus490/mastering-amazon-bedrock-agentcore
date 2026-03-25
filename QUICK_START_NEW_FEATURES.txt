@@ -1,0 +1,89 @@
+================================================================================
+NEW FEATURES - QUICK START GUIDE
+================================================================================
+
+WHAT'S NEW:
+1. Quick Date Range Presets (Last Week, Last 2 Weeks, Last Month, Last 3 Months)
+2. Light/Dark Mode Theme Switcher with Glossy UI
+
+HOW TO APPLY:
+1. Press Ctrl + Shift + R (hard refresh)
+2. That's it!
+
+WHERE TO FIND:
+
+📅 DATE PRESETS:
+- Location: Filter section, after date inputs
+- Buttons: "Last Week", "Last 2 Weeks", "Last Month", "Last 3 Months"
+- Usage: Click any button → dates fill automatically → data refreshes
+
+🌙 THEME TOGGLE:
+- Location: Header, top right (next to refresh button)
+- Icon: 🌙 (light mode) or ☀️ (dark mode)
+- Usage: Click to switch themes → preference saved automatically
+
+FEATURES:
+
+Date Presets:
+✓ One-click date selection
+✓ Last Week (7 days)
+✓ Last 2 Weeks (14 days)
+✓ Last Month (30 days)
+✓ Last 3 Months (90 days)
+✓ Active preset highlighted
+✓ Works with AI insights
+
+Theme Switcher:
+✓ Light mode (default)
+✓ Dark mode
+✓ Glossy glass-morphism effects
+✓ Smooth animations
+✓ Persistent (remembers choice)
+✓ System theme aware
+✓ Reduced eye strain (dark mode)
+
+VISUAL IMPROVEMENTS:
+✓ Modern glossy cards
+✓ Backdrop blur effects
+✓ Smooth hover animations
+✓ Enhanced shadows
+✓ Gradient accents
+✓ Better contrast
+✓ Polished, professional look
+
+FILES CHANGED:
+- web-dashboard/index.html (v=6)
+- web-dashboard/js/app.js (v=6)
+- web-dashboard/css/themes.css (NEW)
+- web-dashboard/js/theme-manager.js (NEW)
+- web-dashboard/js/date-presets.js (NEW)
+- web-dashboard/css/main.css (enhanced)
+
+QUICK TEST:
+1. Hard refresh (Ctrl+Shift+R)
+2. Click theme toggle → should switch light/dark
+3. Reload page → theme should persist
+4. Click "Last Week" → dates should fill in
+5. Select system → AI insights load with preset dates
+
+BENEFITS:
+- Faster date selection
+- Better user experience
+- Modern, polished look
+- Reduced eye strain (dark mode)
+- Consistent date ranges
+- Professional appearance
+
+COMPATIBILITY:
+✓ Chrome 76+
+✓ Firefox 70+
+✓ Safari 13+
+✓ Edge 79+
+✓ Mobile responsive
+✓ Keyboard accessible
+
+DOCUMENTATION:
+- NEW_FEATURES.md - Complete feature guide
+- This file - Quick start
+
+================================================================================

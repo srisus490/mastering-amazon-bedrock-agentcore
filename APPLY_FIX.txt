@@ -1,0 +1,36 @@
+================================================================================
+AI INSIGHTS FIX - QUICK INSTRUCTIONS
+================================================================================
+
+THE PROBLEM:
+Date format mismatch - frontend was sending Date objects, backend expects strings
+
+THE FIX:
+I've updated the code to convert dates to YYYY-MM-DD format strings
+
+HOW TO APPLY:
+1. Press Ctrl + Shift + R in your browser (hard refresh)
+2. That's it!
+
+WHAT TO EXPECT:
+- AI Insights will load in 5-15 seconds (first time)
+- Three panels will show: Smart Insights, Forecast, Root Cause
+- Subsequent loads will be instant (< 1 second) due to caching
+
+VERIFY IT WORKED:
+Open browser console (F12) and look for:
+✓ "startDateType: string" (not "object")
+✓ "API Response - Smart Insights: {...}"
+✓ No error messages
+
+IF STILL BROKEN:
+1. Try incognito mode (Ctrl+Shift+N)
+2. Or restart dashboard server and close all browser tabs
+3. Check AI_INSIGHTS_FIXED.md for detailed troubleshooting
+
+FILES CHANGED:
+- web-dashboard/js/app.js (date conversion fix)
+- web-dashboard/js/api-client.js (enhanced logging)
+- web-dashboard/index.html (cache-busting v=4)
+
+================================================================================

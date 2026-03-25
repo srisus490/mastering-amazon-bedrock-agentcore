@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>File Check</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        .check { margin: 10px 0; padding: 10px; border-radius: 4px; }
+        .success { background: #d4edda; color: #155724; }
+        .error { background: #f8d7da; color: #721c24; }
+        .info { background: #d1ecf1; color: #0c5460; }
+    </style>
+</head>
+<body>
+    <h1>AI Insights File Check</h1>
+    <div id="results"></div>
+    
+    <script>
+        const files = [
+            'js/api-client.js',
+            'js/ai-insights-manager.js',
+            'js/app.js',
+            'js/state-manager.js',
+            'js/ui-manager.js',
+            'js/chart-renderer.js'
+        ];
+        
+        const results = document.getElementById('results');
+        
+        async function checkFile(file) {
+            try {
+                const response = await fetch(file);
+                const size = response.headers.get('content-length');
+                const lastModified = response.headers.get('last-modified');
+                
+                return {
+                    file,
+                    exists: response.ok,
+                    status: response.status,
+                    size: size ? `${(size / 1024).toFixed(2)} KB` : 'unknown',
+                    lastModified: lastModified || 'unknown'
+                };
+            } catch (error) {
+                return {
+                    file,
+                    exists: false,
+                    error: error.message
+                };
+            }
+        }
+        
+        async function checkAllFiles() {
+            results.innerHTML = '<p class="info">Checking files...</p>';
+            
+            const checks = await Promise.all(files.map(checkFile));
+            
+            let html = '';
+            checks.forEach(check => {
+                if (check.exists) {
+                    html += `
+                        <div class="check success">
+                            ✓ ${check.file}<br>
+                            Size: ${check.size} | Last Modified: ${check.lastModified}
+                        </div>
+                    `;
+                } else {
+                    html += `
+                        <div class="check error">
+                            ✗ ${check.file}<br>
+                            Error: ${check.error || `HTTP ${check.status}`}
+                        </div>
+                    `;
+                }
+            });
+            
+            results.innerHTML = html;
+        }
+        
+        checkAllFiles();
+    </script>
+</body>
+</html>

@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File Monitoring Dashboard</title>
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/themes.css">
+    <link rel="stylesheet" href="css/chat.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+</head>
+<body>
+    <div id="app">
+        <header class="header">
+            <div class="header-content">
+                <h1>Intelligent File Monitoring System</h1>
+                <div class="header-controls">
+                    <span id="last-refresh-time" class="refresh-time">Last updated: Never</span>
+                    <button id="manual-refresh" class="btn btn-primary" aria-label="Refresh dashboard data">
+                        <span class="btn-icon">↻</span> Refresh
+                    </button>
+                    <button id="theme-toggle" class="btn btn-theme-toggle" aria-label="Toggle theme" title="Toggle light/dark mode">
+                        <span class="theme-icon">🌙</span>
+                        <span class="theme-label">Dark Mode</span>
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <main class="main-content">
+            <!-- Alphabet sidebar -->
+            <nav id="alpha-sidebar" class="alpha-sidebar" aria-label="Filter systems by letter">
+                <ul id="alpha-list" class="alpha-list"></ul>
+            </nav>
+            <div class="main-body">
+            <div id="notifications" class="notifications" role="alert" aria-live="polite"></div>
+
+            <div id="connectivity-banner" class="banner banner-warning hidden" role="alert">
+                <span class="banner-icon">⚠️</span>
+                <span class="banner-text">Network connectivity lost. Displaying cached data.</span>
+            </div>
+
+            <div id="error-banner" class="banner banner-error hidden" role="alert"></div>
+            <div id="date-range-error" class="inline-error hidden" role="alert"></div>
+
+            <section id="filters" class="filters-section">
+                <h2 class="visually-hidden">Filter Controls</h2>
+                <div class="filters-container">
+                    <div class="filter-group">
+                        <label for="system-select">Source System:</label>
+                        <select id="system-select" class="filter-select" aria-label="Select source system">
+                            <option value="">All Systems</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label for="start-date">Start Date:</label>
+                        <input type="date" id="start-date" class="filter-input" aria-label="Filter start date">
+                    </div>
+                    <div class="filter-group">
+                        <label for="end-date">End Date:</label>
+                        <input type="date" id="end-date" class="filter-input" aria-label="Filter end date">
+                    </div>
+                    <div class="filter-group date-presets">
+                        <label>Quick Select:</label>
+                        <div class="preset-buttons">
+                            <button class="btn btn-preset" data-preset="last-week">Last Week</button>
+                            <button class="btn btn-preset" data-preset="last-2-weeks">Last 2 Weeks</button>
+                            <button class="btn btn-preset" data-preset="last-month">Last Month</button>
+                            <button class="btn btn-preset" data-preset="last-3-months">Last 3 Months</button>
+                        </div>
+                    </div>
+                    <div class="filter-group">
+                        <label for="severity-filter">Severity:</label>
+                        <select id="severity-filter" class="filter-select" aria-label="Filter by severity">
+                            <option value="">All</option>
+                            <option value="critical">Critical</option>
+                            <option value="high">High</option>
+                            <option value="medium">Medium</option>
+                            <option value="low">Low</option>
+                        </select>
+                    </div>
+                    <button id="clear-filters" class="btn btn-secondary" aria-label="Clear all filters">Clear Filters</button>
+                </div>
+            </section>
+
+            <section class="system-overview-section">
+                <h2>System Overview</h2>
+                <div id="system-overview" class="system-grid">
+                    <div class="loading-skeleton"></div>
+                </div>
+            </section>
+
+            <section id="ai-insights-section" class="ai-insights-section hidden">
+                <h2>AI-Powered Insights</h2>
+                <p class="section-description">AI-generated analysis powered by Amazon Bedrock</p>
+                
+                <div class="ai-insights-grid">
+                    <!-- Smart Insights Panel -->
+                    <div class="ai-panel">
+                        <div class="ai-panel-header" data-panel="insights">
+                            <h3>
+                                <span class="panel-icon">🤖</span>
+                                Smart Insights
+                            </h3>
+                            <button class="panel-toggle" aria-label="Toggle smart insights panel">
+                                <span class="toggle-icon">▼</span>
+                            </button>
+                        </div>
+                        <div class="ai-panel-content" id="ai-insights-content">
+                            <p class="no-data">Select a system to view AI insights</p>
+                        </div>
+                    </div>
+
+                    <!-- Forecast Panel -->
+                    <div class="ai-panel">
+                        <div class="ai-panel-header" data-panel="forecast">
+                            <h3>
+                                <span class="panel-icon">📈</span>
+                                7-Day Forecast
+                            </h3>
+                            <button class="panel-toggle" aria-label="Toggle forecast panel">
+                                <span class="toggle-icon">▼</span>
+                            </button>
+                        </div>
+                        <div class="ai-panel-content" id="ai-forecast-content">
+                            <p class="no-data">Select a system to view forecast</p>
+                        </div>
+                    </div>
+
+                    <!-- Root Cause Analysis Panel -->
+                    <div class="ai-panel">
+                        <div class="ai-panel-header" data-panel="root-cause">
+                            <h3>
+                                <span class="panel-icon">🔍</span>
+                                Root Cause Analysis
+                            </h3>
+                            <button class="panel-toggle" aria-label="Toggle root cause panel">
+                                <span class="toggle-icon">▼</span>
+                            </button>
+                        </div>
+                        <div class="ai-panel-content" id="ai-root-cause-content">
+                            <p class="no-data">Select a system to view root cause analysis</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="details-section" class="details-section hidden">
+                <div class="details-tabs" role="tablist">
+                    <button class="tab-btn active" data-tab="file-arrivals-tab" role="tab" aria-selected="true" aria-controls="file-arrivals-tab">File Arrivals</button>
+                    <button class="tab-btn" data-tab="sla-metrics-tab" role="tab" aria-selected="false" aria-controls="sla-metrics-tab">SLA Metrics</button>
+                    <button class="tab-btn" data-tab="trends-tab" role="tab" aria-selected="false" aria-controls="trends-tab">Trends</button>
+                </div>
+
+                <div id="file-arrivals-tab" class="tab-content active" role="tabpanel">
+                    <h3>File Arrivals</h3>
+                    <div id="file-arrivals" class="file-arrivals-container">
+                        <div class="loading-skeleton"></div>
+                    </div>
+                    <div id="pagination-controls" class="pagination hidden"></div>
+                </div>
+
+                <div id="sla-metrics-tab" class="tab-content" role="tabpanel">
+                    <h3>SLA Metrics</h3>
+                    <div id="sla-metrics" class="sla-metrics-container">
+                        <div class="loading-skeleton"></div>
+                    </div>
+                </div>
+
+                <div id="trends-tab" class="tab-content" role="tabpanel">
+                    <h3>Trend Analysis</h3>
+                    <div class="charts-container">
+                        <div class="chart-wrapper">
+                            <h4>Daily File Counts</h4>
+                            <div class="chart-loading hidden">
+                                <div class="spinner"></div>
+                            </div>
+                            <canvas id="daily-trend-chart"></canvas>
+                        </div>
+                        <div class="chart-wrapper">
+                            <h4>Moving Average</h4>
+                            <div class="chart-loading hidden">
+                                <div class="spinner"></div>
+                            </div>
+                            <canvas id="moving-average-chart"></canvas>
+                        </div>
+                        <div class="chart-wrapper">
+                            <h4>Hourly Patterns</h4>
+                            <div class="chart-loading hidden">
+                                <div class="spinner"></div>
+                            </div>
+                            <canvas id="hourly-pattern-chart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            </div><!-- /.main-body -->
+        </main>
+    </div>
+
+    <div id="loading-overlay" class="loading-overlay hidden">
+        <div class="spinner"></div>
+    </div>
+
+    <script type="module" src="js/app.js?v=25"></script>
+</body>
+</html>

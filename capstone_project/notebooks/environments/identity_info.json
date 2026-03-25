@@ -1,0 +1,22 @@
+{
+  "oauth2_provider": {
+    "name": "google-drive-provider",
+    "provider_id": "google-drive-provider",
+    "callback_url": "https://bedrock-agentcore.us-east-1.amazonaws.com/identities/oauth2/callback/fa6b9f92-f4f2-40d5-b558-6495f3011da6",
+    "vendor": "GoogleOauth2"
+  },
+  "google_oauth": {
+    "client_id": "YOUR_GOOGLE_CLIENT_ID"
+  },
+  "agent_runtime": {
+    "name": "travel_agent_google_drive",
+    "entrypoint": "travel_agent_google_drive.py",
+    "oauth_callback_server_port": 9090
+  },
+  "cognito_integration": {
+    "user_pool_id": "us-east-1_kMggiIpM4",
+    "client_id": "42g73g97d8cf2us2ebuf3hhu0k",
+    "discovery_url": "https://cognito-idp.us-east-1.amazonaws.com/us-east-1_kMggiIpM4/.well-known/openid-configuration"
+  },
+  "region": "us-east-1"
+}

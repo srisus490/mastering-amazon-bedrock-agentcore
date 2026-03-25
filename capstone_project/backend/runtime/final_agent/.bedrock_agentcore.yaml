@@ -1,0 +1,55 @@
+default_agent: unified_travel_companion
+agents:
+  unified_travel_companion:
+    name: unified_travel_companion
+    entrypoint: C:/Users/srinivas.susarapu/mastering-amazon-bedrock-agentcore/capstone_project/backend/runtime/final_agent/unified_travel_agent.py
+    deployment_type: container
+    runtime_type: null
+    platform: linux/arm64
+    container_runtime: none
+    source_path: null
+    aws:
+      execution_role: arn:aws:iam::790402872574:role/AmazonBedrockAgentCoreSDKRuntime-us-east-1-e1002ece2c
+      execution_role_auto_create: false
+      account: '790402872574'
+      region: us-east-1
+      ecr_repository: 790402872574.dkr.ecr.us-east-1.amazonaws.com/bedrock-agentcore-unified_travel_companion
+      ecr_auto_create: false
+      s3_path: null
+      s3_auto_create: false
+      network_configuration:
+        network_mode: PUBLIC
+        network_mode_config: null
+      protocol_configuration:
+        server_protocol: HTTP
+      observability:
+        enabled: true
+      lifecycle_configuration:
+        idle_runtime_session_timeout: null
+        max_lifetime: null
+    bedrock_agentcore:
+      agent_id: unified_travel_companion-X6JIqJ5V51
+      agent_arn: arn:aws:bedrock-agentcore:us-east-1:790402872574:runtime/unified_travel_companion-X6JIqJ5V51
+      agent_session_id: 6701fcec-6a38-4f83-ae52-db6823af5c6b
+    codebuild:
+      project_name: bedrock-agentcore-unified_travel_companion-builder
+      execution_role: arn:aws:iam::790402872574:role/AmazonBedrockAgentCoreSDKCodeBuild-us-east-1-e1002ece2c
+      source_bucket: bedrock-agentcore-codebuild-sources-790402872574-us-east-1
+    memory:
+      mode: NO_MEMORY
+      memory_id: null
+      memory_arn: null
+      memory_name: null
+      event_expiry_days: 30
+      first_invoke_memory_check_done: false
+      was_created_by_toolkit: false
+    identity:
+      credential_providers: []
+      workload: null
+    authorizer_configuration:
+      customJWTAuthorizer:
+        allowedClients:
+        - 42g73g97d8cf2us2ebuf3hhu0k
+        discoveryUrl: https://cognito-idp.us-east-1.amazonaws.com/us-east-1_kMggiIpM4/.well-known/openid-configuration
+    request_header_configuration: null
+    oauth_configuration: null

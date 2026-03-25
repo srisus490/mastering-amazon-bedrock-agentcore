@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cache Buster - Force Reload</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+        .step {
+            background: #f9f9f9;
+            padding: 15px;
+            margin: 15px 0;
+            border-left: 4px solid #4CAF50;
+            border-radius: 4px;
+        }
+        .step h3 {
+            margin-top: 0;
+            color: #4CAF50;
+        }
+        .button {
+            display: inline-block;
+            background: #4CAF50;
+            color: white;
+            padding: 12px 24px;
+            text-decoration: none;
+            border-radius: 4px;
+            margin: 10px 5px;
+            font-weight: bold;
+        }
+        .button:hover {
+            background: #45a049;
+        }
+        .warning {
+            background: #fff3cd;
+            border-left-color: #ffc107;
+            color: #856404;
+        }
+        .success {
+            background: #d4edda;
+            border-left-color: #28a745;
+            color: #155724;
+        }
+        code {
+            background: #f4f4f4;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+        }
+        .keyboard {
+            display: inline-block;
+            background: #333;
+            color: white;
+            padding: 4px 8px;
+            border-radius: 3px;
+            font-family: monospace;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔄 Cache Buster - Fix AI Insights</h1>
+        
+        <div class="step warning">
+            <h3>⚠️ The Problem</h3>
+            <p>Your browser has cached old JavaScript files. The AI Insights feature won't work until you clear the cache.</p>
+        </div>
+
+        <div class="step">
+            <h3>✅ Solution: Hard Refresh</h3>
+            <p>Press <span class="keyboard">Ctrl + Shift + R</span> on Windows/Linux</p>
+            <p>Or <span class="keyboard">Cmd + Shift + R</span> on Mac</p>
+            <p>This forces your browser to reload all files from the server.</p>
+        </div>
+
+        <div class="step">
+            <h3>🚀 Quick Fix</h3>
+            <ol>
+                <li>Click the button below to open the dashboard</li>
+                <li>When the dashboard opens, immediately press <span class="keyboard">Ctrl + Shift + R</span></li>
+                <li>The AI Insights should now work!</li>
+            </ol>
+            <a href="index.html" class="button" target="_blank">Open Dashboard</a>
+        </div>
+
+        <div class="step">
+            <h3>🔍 Alternative: Incognito Mode</h3>
+            <p>Open the dashboard in an incognito/private window:</p>
+            <ol>
+                <li>Press <span class="keyboard">Ctrl + Shift + N</span> (Chrome) or <span class="keyboard">Ctrl + Shift + P</span> (Firefox)</li>
+                <li>Go to <code>http://localhost:3000</code></li>
+                <li>AI Insights will work without cached files</li>
+            </ol>
+        </div>
+
+        <div class="step success">
+            <h3>✓ How to Verify It's Fixed</h3>
+            <p>After hard refresh, open browser console (F12) and look for:</p>
+            <ul>
+                <li>✓ "AIInsightsManager initialized" message</li>
+                <li>✓ No "Cannot use import statement" errors</li>
+                <li>✓ AI Insights section loads when you select a system</li>
+            </ul>
+        </div>
+
+        <div class="step">
+            <h3>🛠️ Still Not Working?</h3>
+            <p>Try these steps:</p>
+            <ol>
+                <li><strong>Stop the server:</strong> Press <span class="keyboard">Ctrl + C</span> in the terminal</li>
+                <li><strong>Close all browser tabs</strong> with localhost:3000</li>
+                <li><strong>Restart the server:</strong>
+                    <pre><code>cd web-dashboard
+python -m http.server 3000</code></pre>
+                </li>
+                <li><strong>Open fresh browser tab</strong> and go to <code>http://localhost:3000</code></li>
+            </ol>
+        </div>
+
+        <div class="step">
+            <h3>📊 Test Pages</h3>
+            <p>Use these pages to diagnose issues:</p>
+            <a href="test-module.html" class="button" target="_blank">Test Module Loading</a>
+            <a href="test-ai.html" class="button" target="_blank">Test AI API</a>
+            <a href="check-files.html" class="button" target="_blank">Check Files</a>
+        </div>
+    </div>
+
+    <script>
+        // Add timestamp to show this page is fresh
+        document.addEventListener('DOMContentLoaded', () => {
+            const timestamp = new Date().toLocaleString();
+            const footer = document.createElement('div');
+            footer.style.textAlign = 'center';
+            footer.style.marginTop = '30px';
+            footer.style.color = '#666';
+            footer.innerHTML = `<small>Page loaded at: ${timestamp}</small>`;
+            document.querySelector('.container').appendChild(footer);
+        });
+    </script>
+</body>
+</html>

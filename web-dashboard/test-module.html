@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Module Test</title>
+</head>
+<body>
+    <h1>Module Load Test</h1>
+    <div id="result"></div>
+    
+    <script type="module">
+        try {
+            console.log('Attempting to import AIInsightsManager...');
+            const module = await import('./js/ai-insights-manager.js');
+            console.log('Module imported successfully:', module);
+            document.getElementById('result').innerHTML = '<p style="color: green;">✓ Module loaded successfully!</p>';
+        } catch (error) {
+            console.error('Failed to import module:', error);
+            document.getElementById('result').innerHTML = `<p style="color: red;">✗ Error: ${error.message}</p><pre>${error.stack}</pre>`;
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,6 @@
+{
+  "region": "us-east-1",
+  "model_id": "us.anthropic.claude-haiku-4-5-20251001-v1:0",
+  "browser_tool_initialized": true,
+  "integration_status": "configured"
+}

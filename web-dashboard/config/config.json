@@ -1,0 +1,9 @@
+{
+  "apiBaseURL": "http://localhost:8000",
+  "refreshInterval": 30000,
+  "cacheTimeout": 30000,
+  "retryAttempts": 3,
+  "retryBackoff": 100,
+  "chartMaxDataPoints": 100,
+  "paginationPageSize": 50
+}

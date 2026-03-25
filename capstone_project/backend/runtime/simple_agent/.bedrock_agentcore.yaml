@@ -1,0 +1,51 @@
+default_agent: travel_companion_basic
+agents:
+  travel_companion_basic:
+    name: travel_companion_basic
+    entrypoint: C:/Users/srinivas.susarapu/mastering-amazon-bedrock-agentcore/capstone_project/backend/runtime/simple_agent/travel_agent.py
+    deployment_type: container
+    runtime_type: null
+    platform: linux/arm64
+    container_runtime: none
+    source_path: null
+    aws:
+      execution_role: arn:aws:iam::790402872574:role/AmazonBedrockAgentCoreSDKRuntime-us-east-1-346339bc6e
+      execution_role_auto_create: false
+      account: '790402872574'
+      region: us-east-1
+      ecr_repository: 790402872574.dkr.ecr.us-east-1.amazonaws.com/bedrock-agentcore-travel_companion_basic
+      ecr_auto_create: false
+      s3_path: null
+      s3_auto_create: false
+      network_configuration:
+        network_mode: PUBLIC
+        network_mode_config: null
+      protocol_configuration:
+        server_protocol: HTTP
+      observability:
+        enabled: true
+      lifecycle_configuration:
+        idle_runtime_session_timeout: null
+        max_lifetime: null
+    bedrock_agentcore:
+      agent_id: travel_companion_basic-hYRzmCFvqR
+      agent_arn: arn:aws:bedrock-agentcore:us-east-1:790402872574:runtime/travel_companion_basic-hYRzmCFvqR
+      agent_session_id: 234af31b-46d8-42b7-8ca8-30d73758ccae
+    codebuild:
+      project_name: bedrock-agentcore-travel_companion_basic-builder
+      execution_role: arn:aws:iam::790402872574:role/AmazonBedrockAgentCoreSDKCodeBuild-us-east-1-346339bc6e
+      source_bucket: bedrock-agentcore-codebuild-sources-790402872574-us-east-1
+    memory:
+      mode: NO_MEMORY
+      memory_id: null
+      memory_arn: null
+      memory_name: null
+      event_expiry_days: 30
+      first_invoke_memory_check_done: false
+      was_created_by_toolkit: false
+    identity:
+      credential_providers: []
+      workload: null
+    authorizer_configuration: null
+    request_header_configuration: null
+    oauth_configuration: null

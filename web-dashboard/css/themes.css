@@ -1,0 +1,461 @@
+/**
+ * Theme System - Light and Dark Modes with Glossy Effects
+ */
+
+/* ============================================
+   CSS Variables for Theming
+   ============================================ */
+
+:root {
+    /* Light Mode (Default) */
+    --bg-primary: #f5f7fa;
+    --bg-secondary: #ffffff;
+    --bg-tertiary: #f9fafb;
+    --bg-card: rgba(255, 255, 255, 0.95);
+    --bg-card-hover: rgba(255, 255, 255, 1);
+    
+    --text-primary: #1a202c;
+    --text-secondary: #4a5568;
+    --text-tertiary: #718096;
+    
+    --border-color: rgba(226, 232, 240, 0.8);
+    --border-hover: rgba(203, 213, 224, 1);
+    
+    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.03);
+    --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.05), 0 2px 4px rgba(0, 0, 0, 0.03);
+    --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.08), 0 4px 6px rgba(0, 0, 0, 0.05);
+    --shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.1), 0 10px 10px rgba(0, 0, 0, 0.04);
+    
+    --glass-bg: rgba(255, 255, 255, 0.7);
+    --glass-border: rgba(255, 255, 255, 0.3);
+    
+    --accent-primary: #4299e1;
+    --accent-primary-hover: #3182ce;
+    --accent-success: #48bb78;
+    --accent-warning: #ed8936;
+    --accent-danger: #f56565;
+    
+    --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    --gradient-success: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
+    --gradient-warning: linear-gradient(135deg, #ed8936 0%, #dd6b20 100%);
+    --gradient-danger: linear-gradient(135deg, #f56565 0%, #e53e3e 100%);
+    
+    --blur-amount: 10px;
+}
+
+/* Dark Mode — clean black + simple blue */
+[data-theme="dark"] {
+    --bg-primary: #0a0a0a;
+    --bg-secondary: #111111;
+    --bg-tertiary: #1a1a1a;
+    --bg-card: rgba(18, 18, 18, 0.98);
+    --bg-card-hover: rgba(25, 25, 25, 1);
+
+    --text-primary: #f0f0f0;
+    --text-secondary: #a0a0a0;
+    --text-tertiary: #666666;
+
+    --border-color: rgba(60, 60, 60, 0.8);
+    --border-hover: rgba(59, 130, 246, 0.5);
+
+    --shadow-sm: 0 1px 3px rgba(0,0,0,0.5);
+    --shadow-md: 0 4px 6px rgba(0,0,0,0.5);
+    --shadow-lg: 0 10px 15px rgba(0,0,0,0.6);
+    --shadow-xl: 0 20px 25px rgba(0,0,0,0.7);
+
+    --glass-bg: rgba(15, 15, 15, 0.9);
+    --glass-bg-darker: rgba(8, 8, 8, 0.95);
+    --glass-border: rgba(50, 50, 50, 0.6);
+
+    --accent-primary: #3b82f6;
+    --accent-primary-hover: #2563eb;
+    --accent-success: #22c55e;
+    --accent-warning: #f59e0b;
+    --accent-danger: #ef4444;
+
+    --gradient-primary: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+    --gradient-success: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
+    --gradient-warning: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+    --gradient-danger: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+}
+
+/* ============================================
+   Glossy Effects
+   ============================================ */
+
+.glass-effect {
+    background: var(--glass-bg);
+    backdrop-filter: blur(var(--blur-amount));
+    -webkit-backdrop-filter: blur(var(--blur-amount));
+    border: 1px solid var(--glass-border);
+    box-shadow: var(--shadow-lg);
+}
+
+.glossy-card {
+    background: var(--bg-card);
+    backdrop-filter: blur(var(--blur-amount));
+    -webkit-backdrop-filter: blur(var(--blur-amount));
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    box-shadow: var(--shadow-md);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.glossy-card:hover {
+    background: var(--bg-card-hover);
+    border-color: var(--border-hover);
+    box-shadow: var(--shadow-lg);
+    transform: translateY(-2px);
+}
+
+.glossy-header {
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border-color);
+    box-shadow: var(--shadow-sm);
+}
+
+/* ============================================
+   Theme Toggle Button
+   ============================================ */
+
+#theme-toggle {
+    position: relative;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: var(--shadow-sm);
+}
+
+#theme-toggle:hover {
+    background: var(--bg-card-hover);
+    box-shadow: var(--shadow-md);
+    transform: scale(1.05);
+}
+
+#theme-toggle .theme-icon {
+    font-size: 20px;
+    transition: transform 0.3s ease;
+}
+
+#theme-toggle:hover .theme-icon {
+    transform: rotate(20deg);
+}
+
+/* ============================================
+   Date Preset Buttons
+   ============================================ */
+
+.preset-buttons {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.btn-preset {
+    padding: 6px 12px;
+    font-size: 13px;
+    border-radius: 8px;
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: var(--shadow-sm);
+}
+
+.btn-preset:hover {
+    background: var(--accent-primary);
+    color: white;
+    border-color: var(--accent-primary);
+    box-shadow: var(--shadow-md);
+    transform: translateY(-1px);
+}
+
+.btn-preset:active {
+    transform: translateY(0);
+    box-shadow: var(--shadow-sm);
+}
+
+.btn-preset.active {
+    background: var(--accent-primary);
+    color: white;
+    border-color: var(--accent-primary);
+    box-shadow: var(--shadow-md);
+}
+
+/* ============================================
+   Smooth Transitions
+   ============================================ */
+
+body {
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.header {
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border-color);
+    box-shadow: var(--shadow-sm);
+    transition: all 0.3s ease;
+}
+
+.system-card {
+    background: linear-gradient(145deg, #92400e 0%, #78350f 60%, #6b2d0a 100%);
+    backdrop-filter: blur(var(--blur-amount));
+    -webkit-backdrop-filter: blur(var(--blur-amount));
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.25), inset 0 1px 0 rgba(255,255,255,0.15);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    padding: 0.75rem 1rem;
+    color: #fff;
+}
+
+.system-card:hover {
+    background: linear-gradient(145deg, #a16207 0%, #92400e 60%, #78350f 100%);
+    border-color: rgba(255,255,255,0.25);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.2);
+    transform: translateY(-3px);
+}
+
+.ai-panel {
+    background: var(--bg-card);
+    backdrop-filter: blur(var(--blur-amount));
+    -webkit-backdrop-filter: blur(var(--blur-amount));
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    box-shadow: var(--shadow-md);
+    transition: all 0.3s ease;
+}
+
+.ai-panel:hover {
+    box-shadow: var(--shadow-lg);
+}
+
+/* ============================================
+   Gradient Accents
+   ============================================ */
+
+.status-healthy {
+    background: var(--gradient-success);
+    color: white;
+}
+
+.status-warning {
+    background: var(--gradient-warning);
+    color: white;
+}
+
+.status-critical {
+    background: var(--gradient-danger);
+    color: white;
+}
+
+/* ============================================
+   Responsive Adjustments
+   ============================================ */
+
+@media (max-width: 768px) {
+    .preset-buttons {
+        flex-direction: column;
+    }
+    
+    .btn-preset {
+        width: 100%;
+    }
+    
+    #theme-toggle {
+        width: 40px;
+        height: 40px;
+    }
+}
+
+/* ============================================
+   Animation Keyframes
+   ============================================ */
+
+@keyframes theme-transition {
+    0% {
+        opacity: 0.8;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+[data-theme] {
+    animation: theme-transition 0.3s ease;
+}
+
+/* ============================================
+   Glossy Button Styles
+   ============================================ */
+
+.btn {
+    background: var(--bg-card);
+    color: var(--text-primary);
+    border: 1px solid var(--border-color);
+    box-shadow: var(--shadow-sm);
+    transition: all 0.2s ease;
+}
+
+.btn:hover {
+    box-shadow: var(--shadow-md);
+    transform: translateY(-1px);
+}
+
+.btn-primary {
+    background: var(--accent-primary);
+    color: white;
+    border-color: var(--accent-primary);
+}
+
+.btn-primary:hover {
+    background: var(--accent-primary-hover);
+    border-color: var(--accent-primary-hover);
+}
+
+/* ============================================
+   Filter Section Glossy Style
+   ============================================ */
+
+.filters-section {
+    background: var(--bg-card);
+    backdrop-filter: blur(var(--blur-amount));
+    -webkit-backdrop-filter: blur(var(--blur-amount));
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    box-shadow: var(--shadow-md);
+    padding: 20px;
+    margin-bottom: 24px;
+}
+
+.filter-input,
+.filter-select {
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+    border: 1px solid var(--border-color);
+    transition: all 0.2s ease;
+}
+
+.filter-input:focus,
+.filter-select:focus {
+    border-color: var(--accent-primary);
+    box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.1);
+    outline: none;
+}
+
+/* ============================================
+   Date Presets Group
+   ============================================ */
+
+.date-presets {
+    grid-column: span 2;
+}
+
+.date-presets label {
+    display: block;
+    margin-bottom: 8px;
+}
+
+@media (max-width: 1024px) {
+    .date-presets {
+        grid-column: span 1;
+    }
+}
+
+/* ── Dark Mode Overrides ──────────────────────────────────── */
+[data-theme="dark"] body {
+    background: #0a0a0a;
+}
+
+[data-theme="dark"] .header {
+    background: #111111;
+    border-bottom: 1px solid #222222;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.5);
+}
+
+[data-theme="dark"] .filters-section {
+    background: #111111;
+    border: 1px solid #222222;
+}
+
+[data-theme="dark"] .filter-input,
+[data-theme="dark"] .filter-select {
+    background: #0a0a0a;
+    color: #f0f0f0;
+    border-color: #333333;
+}
+
+[data-theme="dark"] .alpha-sidebar {
+    background: linear-gradient(180deg, #0a0a0a 0%, #111111 100%);
+    box-shadow: 2px 0 8px rgba(0,0,0,0.5);
+}
+
+[data-theme="dark"] .chat-panel {
+    background: #111111;
+    border: 1px solid #222222;
+}
+
+[data-theme="dark"] .chat-header {
+    background: #0a0a0a;
+    border-bottom: 1px solid #222222;
+}
+
+[data-theme="dark"] .chat-message-assistant .chat-message-bubble {
+    background: #1a1a1a;
+    border: 1px solid #333333;
+    color: #f0f0f0;
+}
+
+/* ── Dark/Light Mode Toggle Button ───────────────────────── */
+.btn-theme-toggle {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 5px 10px;
+    border-radius: 16px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    color: var(--text-primary);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: var(--shadow-sm);
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+.btn-theme-toggle:hover {
+    box-shadow: var(--shadow-md);
+    transform: translateY(-1px);
+    border-color: var(--accent-primary);
+}
+
+.btn-theme-toggle .theme-icon {
+    font-size: 14px;
+}
+
+[data-theme="dark"] .btn-theme-toggle {
+    background: #1a1a1a;
+    border-color: #3b82f6;
+    color: #3b82f6;
+}
+
+[data-theme="dark"] .btn-theme-toggle:hover {
+    background: #222222;
+    box-shadow: none;
+}

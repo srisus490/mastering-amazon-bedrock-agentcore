@@ -1,0 +1,19 @@
+{
+  "gateway_name": "TravelMateGateway",
+  "authorizer_config": {
+    "customJWTAuthorizer": {
+      "allowedClients": [
+        "42g73g97d8cf2us2ebuf3hhu0k"
+      ],
+      "discoveryUrl": "https://cognito-idp.us-east-1.amazonaws.com/us-east-1_kMggiIpM4/.well-known/openid-configuration"
+    }
+  },
+  "client_info": {
+    "client_id": "42g73g97d8cf2us2ebuf3hhu0k",
+    "client_secret": "1rbi8qn5e58u9uv9l45d5gro0rr4j2im4h30bhcqpoqg80ganf54",
+    "user_pool_id": "us-east-1_kMggiIpM4",
+    "token_endpoint": "https://agentcore-c1478952.auth.us-east-1.amazoncognito.com/oauth2/token",
+    "scope": "TravelMateGateway/invoke",
+    "domain_prefix": "agentcore-c1478952"
+  }
+}

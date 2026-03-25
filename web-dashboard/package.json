@@ -1,0 +1,30 @@
+{
+  "name": "file-monitoring-dashboard",
+  "version": "1.0.0",
+  "description": "Web dashboard for Intelligent File Monitoring System",
+  "type": "module",
+  "scripts": {
+    "test": "vitest run",
+    "test:unit": "vitest run tests/unit",
+    "test:property": "vitest run tests/property",
+    "test:watch": "vitest",
+    "serve": "npx serve .",
+    "coverage": "vitest run --coverage"
+  },
+  "keywords": [
+    "dashboard",
+    "monitoring",
+    "file-tracking"
+  ],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "@testing-library/dom": "^9.3.4",
+    "@vitest/ui": "^1.0.4",
+    "fast-check": "^3.15.0",
+    "jsdom": "^23.0.1",
+    "msw": "^2.0.11",
+    "vitest": "^1.0.4"
+  },
+  "dependencies": {}
+}

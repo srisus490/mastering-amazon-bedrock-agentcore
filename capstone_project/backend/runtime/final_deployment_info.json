@@ -1,0 +1,19 @@
+{
+  "agent_name": "unified_travel_companion",
+  "agent_arn": "arn:aws:bedrock-agentcore:us-east-1:790402872574:runtime/unified_travel_companion-X6JIqJ5V51",
+  "agent_id": "unified_travel_companion-X6JIqJ5V51",
+  "ecr_uri": "790402872574.dkr.ecr.us-east-1.amazonaws.com/bedrock-agentcore-unified_travel_companion",
+  "region": "us-east-1",
+  "integrated_resources": {
+    "gateway_id": "travelmategateway-ufmin6tijj",
+    "memory_id": "TravelMateMemory-0P3ykr6BRY",
+    "cognito_client_id": "42g73g97d8cf2us2ebuf3hhu0k"
+  },
+  "capabilities": [
+    "gateway_mcp_apis",
+    "memory_preferences",
+    "code_interpreter",
+    "browser_tools",
+    "unified_workflow"
+  ]
+}

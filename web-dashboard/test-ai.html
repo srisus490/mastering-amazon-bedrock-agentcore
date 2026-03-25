@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Insights Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+        }
+        .test-section {
+            margin: 20px 0;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+        .result {
+            margin-top: 10px;
+            padding: 10px;
+            background: #f5f5f5;
+            border-radius: 4px;
+            white-space: pre-wrap;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+        button {
+            padding: 10px 20px;
+            background: #2563eb;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #1d4ed8;
+        }
+        .error {
+            color: #ef4444;
+        }
+        .success {
+            color: #10b981;
+        }
+    </style>
+</head>
+<body>
+    <h1>AI Insights API Test</h1>
+    
+    <div class="test-section">
+        <h2>1. Test Smart Insights</h2>
+        <button onclick="testInsights()">Test Insights</button>
+        <div id="insights-result" class="result"></div>
+    </div>
+    
+    <div class="test-section">
+        <h2>2. Test Forecast</h2>
+        <button onclick="testForecast()">Test Forecast</button>
+        <div id="forecast-result" class="result"></div>
+    </div>
+    
+    <div class="test-section">
+        <h2>3. Test Root Cause</h2>
+        <button onclick="testRootCause()">Test Root Cause</button>
+        <div id="root-cause-result" class="result"></div>
+    </div>
+
+    <script type="module">
+        import { APIClient } from './js/api-client.js';
+        
+        const apiClient = new APIClient('http://localhost:8000');
+        const systemId = 'PROD_ANALYTICS';
+        const startDate = '2026-02-14';
+        const endDate = '2026-02-19';
+        
+        window.testInsights = async function() {
+            const resultDiv = document.getElementById('insights-result');
+            resultDiv.textContent = 'Loading...';
+            
+            try {
+                console.log('Testing insights...');
+                const result = await apiClient.getSmartInsights(systemId, startDate, endDate);
+                console.log('Insights result:', result);
+                resultDiv.innerHTML = `<span class="success">✓ Success</span>\n${JSON.stringify(result, null, 2)}`;
+            } catch (error) {
+                console.error('Insights error:', error);
+                resultDiv.innerHTML = `<span class="error">✗ Error: ${error.message}</span>\n${error.stack}`;
+            }
+        };
+        
+        window.testForecast = async function() {
+            const resultDiv = document.getElementById('forecast-result');
+            resultDiv.textContent = 'Loading...';
+            
+            try {
+                console.log('Testing forecast...');
+                const result = await apiClient.getForecast(systemId, 60);
+                console.log('Forecast result:', result);
+                resultDiv.innerHTML = `<span class="success">✓ Success</span>\n${JSON.stringify(result, null, 2)}`;
+            } catch (error) {
+                console.error('Forecast error:', error);
+                resultDiv.innerHTML = `<span class="error">✗ Error: ${error.message}</span>\n${error.stack}`;
+            }
+        };
+        
+        window.testRootCause = async function() {
+            const resultDiv = document.getElementById('root-cause-result');
+            resultDiv.textContent = 'Loading...';
+            
+            try {
+                console.log('Testing root cause...');
+                const result = await apiClient.getRootCauseAnalysis(systemId, startDate, endDate);
+                console.log('Root cause result:', result);
+                resultDiv.innerHTML = `<span class="success">✓ Success</span>\n${JSON.stringify(result, null, 2)}`;
+            } catch (error) {
+                console.error('Root cause error:', error);
+                resultDiv.innerHTML = `<span class="error">✗ Error: ${error.message}</span>\n${error.stack}`;
+            }
+        };
+    </script>
+</body>
+</html>
