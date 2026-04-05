@@ -15,7 +15,7 @@ class ResponseGenerator:
     """Generates natural language responses using Amazon Bedrock."""
     
     # Maximum output tokens
-    MAX_OUTPUT_TOKENS = 1000
+    MAX_OUTPUT_TOKENS = 2000
     
     # Database schema summary (minimal for cost optimization)
     SCHEMA_SUMMARY = """
@@ -151,54 +151,52 @@ class ResponseGenerator:
         if not kb_context:
             prompt_parts.append(f"\n{self.SCHEMA_SUMMARY}")
         
-        # Add query results
+        # Add query results (limit to 20 rows to reduce prompt size)
         prompt_parts.append("\nQuery Results:")
-        formatted_data = self.formatDataForPrompt(query_result)
+        formatted_data = self.formatDataForPrompt(query_result, max_rows=20)
         prompt_parts.append(formatted_data)
-        
+
         # Add user query
         prompt_parts.append(f"\nUser Question: {user_query}")
-        
+
         # Add response instructions
         prompt_parts.append(
-            "\nProvide a clear, concise answer. "
-            "If the data shows a table, format it as a markdown table. "
-            "Include relevant metrics and timestamps. "
-            "If no data is found, explain why. "
-            "If you used knowledge base information, mention the source."
+            "\nProvide a clear, concise answer based only on the data above. "
+            "Format tables as markdown. Include relevant metrics and timestamps. "
+            "If no data is found, say so. Keep response under 300 words."
         )
         
         return "\n".join(prompt_parts)
     
-    def formatDataForPrompt(self, data: Any) -> str:
+    def formatDataForPrompt(self, data: Any, max_rows: int = 20) -> str:
         """
         Format query results for inclusion in prompt.
-        
+
         Args:
             data: Query results (list of dicts, single dict, or None)
-            
+            max_rows: Maximum rows to include (reduces prompt size)
+
         Returns:
             Formatted string representation
         """
         if data is None or (isinstance(data, list) and len(data) == 0):
             return "No data found."
-        
-        # Convert to list if single dict
+
         if isinstance(data, dict):
             data = [data]
-        
-        # If it's a list of dicts, format as JSON
+
         if isinstance(data, list):
-            # Limit to first 50 rows for cost optimization
-            limited_data = data[:50]
-            
+            limited_data = data[:max_rows]
+            truncated = len(data) > max_rows
             try:
-                # Pretty print JSON
-                return json.dumps(limited_data, indent=2, default=str)
+                result = json.dumps(limited_data, indent=2, default=str)
+                if truncated:
+                    result += f"\n... ({len(data) - max_rows} more rows omitted)"
+                return result
             except Exception as e:
                 logger.warning(f"Error formatting data as JSON: {e}")
                 return str(limited_data)
-        
+
         return str(data)
     
     def extractResponse(self, bedrock_output: str) -> str:
@@ -214,10 +212,10 @@ class ResponseGenerator:
         # Remove any leading/trailing whitespace
         response = bedrock_output.strip()
         
-        # Ensure response isn't too long (enforce token limit)
+        # Ensure response isn't too long
         words = response.split()
-        if len(words) > 250:  # Roughly 1000 tokens
-            response = ' '.join(words[:250]) + '...'
+        if len(words) > 400:  # Roughly 1600 tokens
+            response = ' '.join(words[:400]) + '...'
         
         return response
     

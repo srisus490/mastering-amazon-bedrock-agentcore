@@ -43,10 +43,12 @@ class ScoreCalculator:
                 SLAViolationModel.violation_date == target_date,
             ).all()
             
-            # Simple scoring: 100 if no violations, decrease by 10 per violation
-            # Capped at 0
-            score_value = 100.0 - (len(violations) * 10.0)
-            score_value = max(0.0, score_value)
+            # Severity-weighted scoring: deduct based on violation severity
+            SEVERITY_DEDUCTIONS = {"critical": 40.0, "high": 20.0, "medium": 10.0, "low": 5.0}
+            total_deduction = sum(
+                SEVERITY_DEDUCTIONS.get(v.severity, 10.0) for v in violations
+            )
+            score_value = max(0.0, 100.0 - total_deduction)
             
             logger.debug(
                 "Calculated daily score",

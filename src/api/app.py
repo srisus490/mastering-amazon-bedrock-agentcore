@@ -38,10 +38,11 @@ def create_app() -> FastAPI:
     app.include_router(sla.router, prefix="/api/v1/sla", tags=["SLA"])
     
     # AI-powered endpoints
-    from src.api.routes import ai, ai_insights, chat
+    from src.api.routes import ai, ai_insights, chat, simulate
     app.include_router(ai.router, prefix="/api/v1/ai", tags=["AI - Bedrock"])
     app.include_router(ai_insights.router, prefix="/api/v1/ai", tags=["AI - Insights"])
     app.include_router(chat.router, prefix="/api/v1/chat", tags=["Chat"])
+    app.include_router(simulate.router, prefix="/api/v1/simulate", tags=["Simulate"])
     
     @app.on_event("startup")
     async def startup_event():
